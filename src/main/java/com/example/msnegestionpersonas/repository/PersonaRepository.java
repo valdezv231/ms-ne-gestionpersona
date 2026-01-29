@@ -16,10 +16,4 @@ public interface PersonaRepository extends ReactiveCrudRepository<Persona, UUID>
         AND (:tipoDocumento IS NULL OR tipo_documento = :tipoDocumento)
     """)
     Flux<Persona> buscar(Integer edad, String tipoDocumento);
-
-    @Query("""
-        SELECT * FROM personas 
-        WHERE eliminado = 0
-    """)
-    Flux<Persona> findAllActive();
 }

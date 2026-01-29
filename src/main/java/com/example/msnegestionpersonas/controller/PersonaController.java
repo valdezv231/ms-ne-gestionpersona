@@ -5,6 +5,7 @@ import com.example.msnegestionpersonas.entity.Persona;
 import com.example.msnegestionpersonas.service.PersonaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -23,6 +24,13 @@ public class PersonaController {
             @RequestParam(required = false) Integer edad,
             @RequestParam(required = false) String tipoDocumento) {
         return service.listar(edad, tipoDocumento);
+    }
+
+    @GetMapping("/{id}")
+    public Mono<ResponseEntity<Persona>> buscarPorId(@PathVariable UUID id) {
+        return service.buscarPorId(id)
+                .map(ResponseEntity::ok)
+                .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
     @PostMapping

@@ -20,6 +20,10 @@ public class PersonaService {
         return repository.buscar(edad, tipoDocumento);
     }
 
+    public Mono<Persona> buscarPorId(UUID id) {
+        return repository.findById(id);
+    }
+
     public Mono<Persona> crear(PersonaRequest request) {
         Persona persona = new Persona();
         persona.setNombres(request.getNombres());
