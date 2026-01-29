@@ -20,15 +20,15 @@ public class PersonaService {
         return repository.buscar(edad, tipoDocumento);
     }
 
-    public Mono<Persona> crear(PersonaRequest dto) {
+    public Mono<Persona> crear(PersonaRequest request) {
         Persona persona = new Persona();
-        persona.setNombres(dto.getNombres());
-        persona.setApellidoPaterno(dto.getApellidoPaterno());
-        persona.setApellidoMaterno(dto.getApellidoMaterno());
-        persona.setNumeroDocumento(dto.getNumeroDocumento());
-        persona.setTipoDocumento(dto.getTipoDocumento());
-        persona.setEdad(dto.getEdad().toString());
-        persona.setTipoCliente(dto.getTipoCliente());
+        persona.setNombres(request.getNombres());
+        persona.setApellidoPaterno(request.getApellidoPaterno());
+        persona.setApellidoMaterno(request.getApellidoMaterno());
+        persona.setNumeroDocumento(request.getNumeroDocumento());
+        persona.setTipoDocumento(request.getTipoDocumento());
+        persona.setEdad(request.getEdad().toString());
+        persona.setTipoCliente(request.getTipoCliente());
 
         persona.setCreadoPor("Admin");
         persona.setCreadoFecha(LocalDateTime.now());
@@ -37,16 +37,16 @@ public class PersonaService {
         return repository.save(persona);
     }
 
-    public Mono<Persona> actualizar(UUID id, PersonaRequest dto) {
+    public Mono<Persona> actualizar(UUID id, PersonaRequest request) {
         return repository.findById(id)
                 .switchIfEmpty(Mono.error(new RuntimeException("Persona no encontrada")))
                 .flatMap(p -> {
-                    p.setNombres(dto.getNombres());
-                    p.setApellidoPaterno(dto.getApellidoPaterno());
-                    p.setApellidoMaterno(dto.getApellidoMaterno());
-                    p.setTipoDocumento(dto.getTipoDocumento());
-                    p.setEdad(dto.getEdad().toString());
-                    p.setTipoCliente(dto.getTipoCliente());
+                    p.setNombres(request.getNombres());
+                    p.setApellidoPaterno(request.getApellidoPaterno());
+                    p.setApellidoMaterno(request.getApellidoMaterno());
+                    p.setTipoDocumento(request.getTipoDocumento());
+                    p.setEdad(request.getEdad().toString());
+                    p.setTipoCliente(request.getTipoCliente());
 
                     p.setActualizadoPor("Admin");
                     p.setActualizadoFecha(LocalDateTime.now());

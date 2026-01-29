@@ -26,13 +26,13 @@ public class PersonaController {
     }
 
     @PostMapping
-    public Mono<Persona> crear(@Valid @RequestBody PersonaRequest dto) {
-        return service.crear(dto);
+    public Mono<Persona> crear(@Valid @RequestBody PersonaRequest request) {
+        return service.crear(request);
     }
 
     @PutMapping("/{id}")
-    public Mono<Persona> actualizar(@PathVariable UUID id, @Valid @RequestBody PersonaRequest dto) {
-        return service.actualizar(id, dto);
+    public Mono<Persona> actualizar(@PathVariable UUID id, @Valid @RequestBody PersonaRequest request) {
+        return service.actualizar(id, request);
     }
 
     @DeleteMapping("/{id}")
